@@ -22,4 +22,11 @@ A full-stack blog application built with:
 - Laravel backend created
 - Backend Docker container (PHP 8.4-FPM) configured
 
+### Docker Notes
+
+- Laravel runs inside a PHP 8.4 FPM container
+- Containers use a non-root user (UID 1000) to avoid WSL permission issues
+- Nginx serves Laravel via PHP-FPM
+
 > This project is being built step-by-step with production-grade architecture.
+
