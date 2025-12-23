@@ -37,4 +37,5 @@ A full-stack blog application built with:
 - User registration and login endpoints implemented (JWT-based)
 - Post model and database schema created with expiration support
 - Tags model and post_tag pivot table created (many-to-many)
+- Comments model created with post and author relationships
 
