@@ -33,6 +33,18 @@ services:
     container_name: blog_redis
     ports:
       - "6379:6379"
+  queue:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    container_name: blog_queue
+    volumes:
+      - ./backend:/var/www
+    working_dir: /var/www
+    command: php artisan queue:work --sleep=3 --tries=3
+    depends_on:
+      - redis
+      - mysql
 
 
 volumes:
