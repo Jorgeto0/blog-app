@@ -33,4 +33,5 @@ A full-stack blog application built with:
 - Redis is used for Laravel queues and scheduled background jobs
 - A dedicated scheduler container runs Laravel scheduled tasks
 - JWT authentication infrastructure configured
+- User model prepared for JWT authentication
 
