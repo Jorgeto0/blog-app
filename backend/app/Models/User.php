@@ -19,6 +19,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
