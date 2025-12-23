@@ -34,4 +34,5 @@ A full-stack blog application built with:
 - A dedicated scheduler container runs Laravel scheduled tasks
 - JWT authentication infrastructure configured
 - User model prepared for JWT authentication
+- User registration and login endpoints implemented (JWT-based)
 

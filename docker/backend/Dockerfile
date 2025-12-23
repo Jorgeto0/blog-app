@@ -17,7 +17,7 @@ RUN docker-php-ext-install \
     bcmath \
     gd
 
-# 👇 ADD THIS
+
 RUN pecl install redis \
     && docker-php-ext-enable redis
 
