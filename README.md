@@ -31,3 +31,5 @@ A full-stack blog application built with:
 > This project is being built step-by-step with production-grade architecture.
 
 - Redis is used for Laravel queues and scheduled background jobs
+- A dedicated scheduler container runs Laravel scheduled tasks
+

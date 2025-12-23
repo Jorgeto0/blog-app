@@ -45,6 +45,20 @@ services:
     depends_on:
       - redis
       - mysql
+  
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    container_name: blog_scheduler
+    volumes:
+      - ./backend:/var/www
+    working_dir: /var/www
+    command: php artisan schedule:work
+    depends_on:
+      - mysql
+      - redis
+
 
 
 volumes:
