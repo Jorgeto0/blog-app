@@ -35,4 +35,6 @@ A full-stack blog application built with:
 - JWT authentication infrastructure configured
 - User model prepared for JWT authentication
 - User registration and login endpoints implemented (JWT-based)
+- Post model and database schema created with expiration support
+- Tags model and post_tag pivot table created (many-to-many)
 
