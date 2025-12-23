@@ -38,4 +38,5 @@ A full-stack blog application built with:
 - Post model and database schema created with expiration support
 - Tags model and post_tag pivot table created (many-to-many)
 - Comments model created with post and author relationships
+- Post CRUD endpoints implemented with tag enforcement and expiration
 
