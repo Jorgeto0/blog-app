@@ -4,12 +4,16 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Post;
-use App\Policies\PostPolicy;
+use App\Models\Comment;
+use App\Policies\PostPolicy ;
+use App\Policies\CommentPolicy;
+
 
 class AppServiceProvider extends ServiceProvider
 {
     protected $policies = [
     Post::class => PostPolicy::class,
+    Comment::class => CommentPolicy::class,
     ];
     
     /**
