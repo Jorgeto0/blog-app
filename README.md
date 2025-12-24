@@ -73,7 +73,22 @@ Common setup steps:
 Run tests inside the backend container:
 
 ```bash
-php artisan test
+## API Documentation
+
+The API is documented using a Postman collection.
+
+### How to use
+1. Import the collection from `/postman/Laravel_Blog_API.postman_collection.json`
+2. Run **Register** or **Login**
+3. The JWT token is automatically stored and reused
+4. Access protected routes using Bearer authentication
+
+The collection includes examples for:
+- Authentication
+- CRUD posts with ownership rules
+- Comments
+- Authorization and error responses
+
 
 
 
