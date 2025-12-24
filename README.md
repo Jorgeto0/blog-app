@@ -40,5 +40,17 @@ A full-stack blog application built with:
 - Comments model created with post and author relationships
 - Post CRUD endpoints implemented with tag enforcement and expiration
 - Authorization policies implemented for post ownership (update/delete)
+- Comments CRUD implemented with ownership enforcement via policies
+## Scheduled Jobs
+
+Expired posts are automatically deleted using Laravel Scheduler.
+
+- Command: `posts:delete-expired`
+- Frequency: hourly
+- Logic: deletes posts where `expires_at <= now()`
+- Scheduler runs via `php artisan schedule:work` inside Docker
+
+This ensures posts are cleaned up without manual intervention.
+
 
 
