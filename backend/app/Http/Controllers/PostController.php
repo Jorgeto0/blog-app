@@ -41,9 +41,7 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
-            abort(403);
-        }
+        $this->authorize('update', $post);
 
         $data = $request->validate([
             'title' => 'sometimes|string|max:255',
@@ -55,9 +53,9 @@ class PostController extends Controller
         $post->update($request->only('title', 'body'));
 
         if (isset($data['tags'])) {
-            $tagIds = collect($data['tags'])->map(function ($name) {
-                return Tag::firstOrCreate(['name' => $name])->id;
-            });
+            $tagIds = collect($data['tags'])->map(fn ($name) => 
+                Tag::firstOrCreate(['name' => $name])->id
+            );
 
             $post->tags()->sync($tagIds);
         }
@@ -67,9 +65,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
-            abort(403);
-        }
+        $this->authorize('delete', $post);
 
         $post->delete();
 
