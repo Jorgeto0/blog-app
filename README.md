@@ -51,6 +51,29 @@ Expired posts are automatically deleted using Laravel Scheduler.
 - Scheduler runs via `php artisan schedule:work` inside Docker
 
 This ensures posts are cleaned up without manual intervention.
+## Testing
+
+The project includes automated **Feature tests** to verify:
+
+- User registration and login (JWT authentication)
+- Protection of authenticated routes
+- Authorization rules via policies (ownership enforcement)
+
+### Test Environment
+
+Tests run against a dedicated MySQL database using `.env.testing`.
+
+Common setup steps:
+- Configure valid `APP_KEY` and JWT keys
+- Use a separate testing database
+- Ensure required model factories exist
+
+### Running Tests
+
+Run tests inside the backend container:
+
+```bash
+php artisan test
 
 
 
