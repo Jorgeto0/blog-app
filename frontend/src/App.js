@@ -2,7 +2,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import Posts from './pages/Posts';
 import ProtectedRoute from './auth/ProtectedRoute';
+
 
 function App() {
   return (
@@ -15,6 +17,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Posts />
             </ProtectedRoute>
           }
         />
