@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { getToken, removeToken } from '../auth/token';
 
-function Layout() {
+function Header() {
   const navigate = useNavigate();
   const isAuth = !!getToken();
 
@@ -36,4 +36,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default Header;

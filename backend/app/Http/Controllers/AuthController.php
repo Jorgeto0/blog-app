@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Resources\UserResource;
 
 class AuthController extends Controller
 {
@@ -15,13 +16,17 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
+            'image' => 'nullable|image|max:2048',
         ]);
 
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        if ($request->hasFile('image')) {
+            $data['image'] = $request
+                ->file('image')
+                ->store('avatars', 'public');
+        }
+
+        $user = User::create($data);
+        return new UserResource($user);
 
         $token = JWTAuth::fromUser($user);
 

@@ -1,0 +1,148 @@
+/* Landing Page */
+.landing {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  text-align: center;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.landing-content {
+  max-width: 800px;
+}
+
+.landing h1 {
+  font-size: 56px;
+  margin: 0 0 8px 0;
+  font-weight: 800;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.landing h2 {
+  font-size: 32px;
+  margin: 0 0 24px 0;
+  font-weight: 300;
+  opacity: 0.95;
+}
+
+.landing-intro {
+  font-size: 18px;
+  margin-bottom: 48px;
+  opacity: 0.95;
+  line-height: 1.6;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin: 48px 0;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s, background 0.3s;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.feature-icon {
+  font-size: 36px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.feature h3 {
+  font-size: 18px;
+  margin: 12px 0;
+  font-weight: 600;
+}
+
+.feature p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.landing-cta {
+  font-size: 20px;
+  margin: 32px 0 24px 0;
+  font-weight: 600;
+}
+
+.landing-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.landing-buttons a {
+  padding: 14px 40px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+  border: 2px solid white;
+}
+
+.btn-signin {
+  background: white;
+  color: #667eea;
+}
+
+.btn-signin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background: #f5f5f5;
+}
+
+.btn-signup {
+  background: transparent;
+  color: white;
+  border-color: white;
+}
+
+.btn-signup:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .landing h1 {
+    font-size: 36px;
+  }
+
+  .landing h2 {
+    font-size: 24px;
+  }
+
+  .landing-intro {
+    font-size: 16px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .landing-buttons {
+    flex-direction: column;
+  }
+
+  .landing-buttons a {
+    width: 100%;
+  }
+}
