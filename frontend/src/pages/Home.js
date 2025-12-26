@@ -11,8 +11,8 @@ function Home() {
 
   return (
     <>
-      <h2>Welcome</h2>
-      <button onClick={logout}>Logout</button>
+      <h2>Welcome back! 👋</h2>
+      <p>You're logged in. Head over to <strong>Posts</strong> to start creating and sharing content.</p>
     </>
   );
 }

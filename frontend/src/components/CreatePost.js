@@ -28,28 +28,31 @@ function CreatePost({ onCreated }) {
   };
 
   return (
-    <form onSubmit={submit}>
-      <h3>Create Post</h3>
+    <form onSubmit={submit} className="create-post-form">
+      <h3>✨ Create New Post</h3>
 
       <input
-        placeholder="Title"
+        placeholder="Post title..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        required
       />
 
       <textarea
-        placeholder="Body"
+        placeholder="What's on your mind? (This will expire in 24 hours)..."
         value={body}
         onChange={(e) => setBody(e.target.value)}
+        rows="6"
+        required
       />
 
       <input
-        placeholder="Tags (comma separated)"
+        placeholder="Add tags (comma separated, optional)"
         value={tags}
         onChange={(e) => setTags(e.target.value)}
       />
 
-      <button type="submit">Create</button>
+      <button type="submit">Publish Post</button>
     </form>
   );
 }

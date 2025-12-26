@@ -1,33 +1,28 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './pages/Layout';
+import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Home from './pages/Home';
 import Posts from './pages/Posts';
 import ProtectedRoute from './auth/ProtectedRoute';
-
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route 
-          path="/" 
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Posts />
-            </ProtectedRoute>
-          }
-        />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/posts"
+            element={
+              <ProtectedRoute>
+                <Posts />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

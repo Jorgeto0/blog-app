@@ -1,0 +1,31 @@
+.form {
+  max-width: 420px;
+  margin: 60px auto;
+  background: #fff;
+  padding: 28px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.form h2 {
+  margin-bottom: 16px;
+}
+
+.form input,
+.form textarea,
+.form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 12px;
+}
+
+.form button {
+  background: #222;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.form button:hover {
+  opacity: 0.9;
+}

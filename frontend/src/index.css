@@ -1,13 +1,516 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #222;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+}
+
+/* Header Styling */
+.app-header {
+  background: white;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app-header nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.app-header a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.app-header a:hover {
+  color: #667eea;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s;
+  font-size: 16px;
+}
+
+.link-btn:hover {
+  color: #667eea;
+}
+
+/* Landing Page */
+.landing {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  text-align: center;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.landing-content {
+  max-width: 800px;
+}
+
+.landing h1 {
+  font-size: 56px;
+  margin: 0 0 8px 0;
+  font-weight: 800;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.landing h2 {
+  font-size: 32px;
+  margin: 0 0 24px 0;
+  font-weight: 300;
+  opacity: 0.95;
+}
+
+.landing-intro {
+  font-size: 18px;
+  margin-bottom: 48px;
+  opacity: 0.95;
+  line-height: 1.6;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin: 48px 0;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s, background 0.3s;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.feature-icon {
+  font-size: 36px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.feature h3 {
+  font-size: 18px;
+  margin: 12px 0;
+  font-weight: 600;
+}
+
+.feature p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.landing-cta {
+  font-size: 20px;
+  margin: 32px 0 24px 0;
+  font-weight: 600;
+}
+
+.landing-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.landing-buttons a {
+  padding: 14px 40px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+  border: 2px solid white;
+}
+
+.btn-signin {
+  background: white;
+  color: #667eea;
+}
+
+.btn-signin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background: #f5f5f5;
+}
+
+.btn-signup {
+  background: transparent;
+  color: white;
+  border-color: white;
+}
+
+.btn-signup:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Forms */
+.form {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 32px;
+  font-size: 28px;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.form input:focus,
+.form textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form button {
+  width: 100%;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Create Post Form */
+.create-post-form {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0f0f0;
+}
+
+.create-post-form h3 {
+  color: #333;
+  margin: 0 0 28px 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.create-post-form input,
+.create-post-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border: 2px solid #e8e8e8;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.create-post-form input:focus,
+.create-post-form textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+}
+
+.create-post-form button {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 8px;
+}
+
+.create-post-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+/* Posts */
+.post {
+  background: white;
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
+  border: 1px solid #f0f0f0;
+}
+
+.post:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  border-color: #667eea;
+}
+
+article {
+  width: 100%;
+}
+
+.post h3 {
+  color: #222;
+  margin: 0 0 16px 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.post p {
+  color: #555;
+  margin: 16px 0;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea15, #764ba215);
+  color: #667eea;
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #667eea40;
+  transition: all 0.3s;
+}
+
+.tag:hover {
+  background: linear-gradient(135deg, #667eea25, #764ba225);
+  border-color: #667eea;
+}
+
+.post-actions {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #f5f5f5;
+  display: flex;
+  gap: 12px;
+}
+
+/* Edit Form */
+.edit-form {
+  background: linear-gradient(135deg, #f8f9ff, #f0f2f5);
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid #e8e8ff;
+}
+
+.edit-form input,
+.edit-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.edit-form button {
+  padding: 10px 20px;
+  margin-right: 8px;
+  margin-top: 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.edit-form .save {
+  background: linear-gradient(135deg, #27ae60, #229954);
+}
+
+.edit-form .save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(39, 174, 96, 0.3);
+}
+
+.edit-form .cancel {
+  background: #95a5a6;
+  color: white;
+}
+
+.edit-form .cancel:hover {
+  background: #7f8c8d;
+  transform: translateY(-2px);
+}
+
+/* Buttons */
+button {
+  padding: 10px 16px;
+  margin-right: 8px;
+  margin-top: 12px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background: #5568d3;
+  transform: translateY(-1px);
+}
+
+button.delete {
+  background: #e74c3c;
+}
+
+button.delete:hover {
+  background: #c0392b;
+}
+
+button.edit {
+  background: #f39c12;
+}
+
+button.edit:hover {
+  background: #d68910;
+}
+
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .app-header nav {
+    width: 100%;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .landing h1 {
+    font-size: 36px;
+  }
+
+  .landing h2 {
+    font-size: 24px;
+  }
+
+  .landing-intro {
+    font-size: 16px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .landing-buttons {
+    flex-direction: column;
+  }
+
+  .landing-buttons a {
+    width: 100%;
+  }
+
+  .form {
+    padding: 24px;
+  }
+
+  .create-post-form {
+    padding: 20px;
+  }
+
+  .post {
+    padding: 20px;
+  }
 }

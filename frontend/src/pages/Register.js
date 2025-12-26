@@ -19,14 +19,14 @@ function Register() {
         password_confirmation: password,
       });
 
-      navigate('/login');
+      navigate('/posts');
     } catch (error) {
       alert('Registration failed');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <h2>Register</h2>
 
       <input

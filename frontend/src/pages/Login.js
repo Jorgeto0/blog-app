@@ -18,14 +18,14 @@ function Login() {
       });
 
       setToken(response.data.access_token);
-      navigate('/');
+      navigate('/posts');
     } catch (error) {
       alert('Invalid credentials');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <h2>Login</h2>
 
       <input
