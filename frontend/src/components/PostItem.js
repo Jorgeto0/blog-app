@@ -1,6 +1,7 @@
 import { deletePost, updatePost } from '../api/posts';
 import { useState } from 'react';
 import Comments from './Comments';
+import Expiration from './Expiration';
 
 function PostItem({ post, currentUser, onRefresh }) {
   const isOwner = currentUser?.id === post.user_id;
@@ -43,12 +44,15 @@ function PostItem({ post, currentUser, onRefresh }) {
             <span className="post-time">
               {new Date(post.created_at).toLocaleDateString()}
             </span>
+            <div className="post-expiration">
+              <Expiration expiresAt={post.expires_at} />
+            </div>
           </div>
         </div>
         {isOwner && !editing && (
           <div className="post-menu">
-            <button onClick={() => setEditing(true)} className="edit">✏️</button>
-            <button onClick={remove} className="delete">🗑️</button>
+            <button onClick={() => setEditing(true)} className="edit">Edit</button>
+            <button onClick={remove} className="delete">Delete</button>
           </div>
         )}
       </div>

@@ -4,16 +4,16 @@ function Expiration({ expiresAt }) {
   const diffMs = expires - now;
 
   if (diffMs <= 0) {
-    return <p style={{ color: 'red' }}>Expired</p>;
+    return <span className="expiration expired">Expired</span>;
   }
 
   const hours = Math.floor(diffMs / (1000 * 60 * 60));
   const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
 
   return (
-    <p style={{ color: 'orange' }}>
-      Expires in {hours}h {minutes}m
-    </p>
+    <span className="expiration active">
+      {hours}h {minutes}m remaining
+    </span>
   );
 }
 

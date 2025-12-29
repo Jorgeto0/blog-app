@@ -54,9 +54,78 @@ article {
   color: #999;
 }
 
+.post-expiration {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.expiration {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 11px;
+}
+
+.expiration.active {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.expiration.expired {
+  background: #f8d7da;
+  color: #721c24;
+}
+
 .post-menu {
   display: flex;
+  gap: 8px;
+}
+
+.post-menu button.edit {
+  background: #2196F3;
+  color: white;
+  padding: 6px 14px;
+  font-size: 12px;
+  margin: 0;
+  border-radius: 4px;
+  width: auto;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
   gap: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.post-menu button.edit:hover {
+  background: #1976D2;
+  box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+}
+
+.post-menu button.delete {
+  background: #f44336;
+  color: white;
+  padding: 6px 14px;
+  font-size: 12px;
+  margin: 0;
+  border-radius: 4px;
+  width: auto;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.post-menu button.delete:hover {
+  background: #da190b;
+  box-shadow: 0 2px 4px rgba(244, 67, 54, 0.3);
 }
 
 /* Post Content */
@@ -187,31 +256,33 @@ article {
 }
 
 .edit-form button {
-  padding: 10px 20px;
+  padding: 8px 16px;
   margin-right: 8px;
   margin-top: 8px;
-  border-radius: 6px;
+  border-radius: 4px;
   font-weight: 600;
-  transition: all 0.3s;
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
 }
 
 .edit-form .save {
-  background: linear-gradient(135deg, #27ae60, #229954);
+  background: #4CAF50;
+  color: white;
 }
 
 .edit-form .save:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(39, 174, 96, 0.3);
+  background: #45a049;
 }
 
 .edit-form .cancel {
-  background: #95a5a6;
+  background: #f44336;
   color: white;
 }
 
 .edit-form .cancel:hover {
-  background: #7f8c8d;
-  transform: translateY(-2px);
+  background: #da190b;
 }
 
 @media (max-width: 768px) {

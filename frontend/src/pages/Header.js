@@ -1,12 +1,14 @@
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { getToken, removeToken } from '../auth/token';
 import { useEffect, useState } from 'react';
 import { getCurrentUser } from '../auth/user';
 
 function Header() {
   const navigate = useNavigate();
+  const location = useLocation();
   const isAuth = !!getToken();
   const [currentUser, setCurrentUser] = useState(null);
+  const isLanding = location.pathname === '/';
 
   useEffect(() => {
     if (isAuth) {
@@ -40,7 +42,7 @@ function Header() {
                 </button>
               </div>
             ) : (
-              <Link to="/" className="home-link">Home</Link>
+              !isLanding && <Link to="/" className="home-link">Home</Link>
             )}
           </nav>
         </div>

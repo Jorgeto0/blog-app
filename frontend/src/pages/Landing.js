@@ -5,7 +5,8 @@ function Landing() {
     <div className="landing">
       <div className="landing-content">
         <h1>My Blog</h1>
-        <p>Share your thoughts</p>
+        <h3>Share your thoughts.</h3>
+        <p>Note: Every post is automatically deleted after 24 hours.</p>
         
         <div className="landing-buttons">
           <Link to="/login" className="btn-signin">Sign In</Link>

@@ -29,7 +29,7 @@ function CreatePost({ onCreated }) {
 
   return (
     <form onSubmit={submit} className="create-post-form">
-      <h3>✨ Create New Post</h3>
+      <h3>Create New Post</h3>
 
       <input
         placeholder="Post title..."
