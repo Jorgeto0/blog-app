@@ -29,7 +29,30 @@ function PostItem({ post, currentUser, onRefresh }) {
   };
 
   return (
-    <article>
+    <article className="post">
+      <div className="post-header">
+        <div className="post-user-info">
+          <img
+            src={post.user?.image ? (post.user.image.startsWith('http') ? post.user.image : `http://localhost:8000/storage/${post.user.image}`) : 'https://via.placeholder.com/40?text=User'}
+            alt={post.user?.name}
+            className="post-avatar"
+            onError={(e) => {e.target.src = 'https://via.placeholder.com/40?text=User'}}
+          />
+          <div className="post-user-details">
+            <h4 className="post-username">{post.user?.name || 'Anonymous'}</h4>
+            <span className="post-time">
+              {new Date(post.created_at).toLocaleDateString()}
+            </span>
+          </div>
+        </div>
+        {isOwner && !editing && (
+          <div className="post-menu">
+            <button onClick={() => setEditing(true)} className="edit">✏️</button>
+            <button onClick={remove} className="delete">🗑️</button>
+          </div>
+        )}
+      </div>
+
       {editing ? (
         <div className="edit-form">
           <input placeholder="Post title" value={title} onChange={e => setTitle(e.target.value)} />
@@ -41,7 +64,7 @@ function PostItem({ post, currentUser, onRefresh }) {
       ) : (
         <>
           <h3>{post.title}</h3>
-          <p>{post.body}</p>
+          <p className="post-body">{post.body}</p>
           {post.tags.length > 0 && (
             <div className="post-tags">
               {post.tags.map(t => (
@@ -50,13 +73,6 @@ function PostItem({ post, currentUser, onRefresh }) {
             </div>
           )}
         </>
-      )}
-
-      {isOwner && !editing && (
-        <div className="post-actions">
-          <button onClick={() => setEditing(true)} className="edit">✏️ Edit</button>
-          <button onClick={remove} className="delete">🗑️ Delete</button>
-        </div>
       )}
 
       <Comments
