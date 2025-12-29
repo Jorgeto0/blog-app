@@ -43,19 +43,52 @@ docker compose up --build
 
 ## 🧪 Test It
 
-### In the Browser
-1. Go to http://localhost:3000
-2. Register a new account
-3. Create a post
+### Option 1: Test in Browser (Easy)
+1. Go to **http://localhost:3000**
+2. Register new account
+3. Create a post with title, body, tags
 4. Add a comment
 5. Edit/delete your post
+6. ✅ Everything works!
 
-### With Postman (API Testing)
-1. Open Postman
-2. Click **Import** → Select `Laravel Blog API.postman_collection.json`
-3. Login endpoint → Get token → Test endpoints
+### Option 2: Test with Postman (API Testing)
+1. Open **Postman**
+2. Click **Import** → Select **`Laravel Blog API.postman_collection.json`**
+3. Send **POST /auth/register** → Get token
+4. Test endpoints (token auto-used)
 
-**See [POSTMAN_GUIDE.md](POSTMAN_GUIDE.md) for detailed API examples**
+👉 **See [POSTMAN_GUIDE.md](POSTMAN_GUIDE.md) for detailed API guide**
+
+### Option 3: Run Automated Tests (Development)
+
+**First time only - create test database:**
+```bash
+docker compose exec backend php artisan migrate --env=testing
+```
+This creates tables in `blog_testing` database for testing.
+
+**Then run tests anytime:**
+```bash
+docker compose exec backend php artisan test
+```
+
+Laravel automatically:
+- ✅ Uses `.env.testing` configuration
+- ✅ Refreshes test database
+- ✅ Runs all Feature tests
+- ✅ Shows pass/fail results
+
+**Example output:**
+```
+PASS  Tests\Feature\AuthTest
+PASS  Tests\Feature\PostTest
+PASS  Tests\Feature\CommentTest
+
+Tests: 12 passed
+Time: 1.34s
+```
+
+If a test fails, you see exactly what broke and why.
 
 ---
 
@@ -127,6 +160,12 @@ docker builder prune -f
 docker compose up --build
 ```
 
+### Tests fail with connection error
+```bash
+# Make sure you ran the test migration first
+docker compose exec backend php artisan migrate --env=testing
+```
+
 ---
 
 ## 🔧 Useful Commands
@@ -135,8 +174,11 @@ docker compose up --build
 # View all logs
 docker compose logs -f
 
-# Run backend tests
-docker exec -it blog_backend php artisan test
+# Run feature tests
+docker compose exec backend php artisan test
+
+# Run test with specific test name
+docker compose exec backend php artisan test --filter=AuthTest
 
 # Access backend shell
 docker exec -it blog_backend bash
@@ -147,7 +189,7 @@ docker exec -it blog_mysql mysql -u blog_user -psecret
 # Stop everything
 docker compose down
 
-# Clean everything & restart
+# Clean everything & restart fresh
 docker compose down -v && docker compose up --build
 ```
 
@@ -155,57 +197,15 @@ docker compose down -v && docker compose up --build
 
 ## 📚 Want More Details?
 
-- **[POSTMAN_GUIDE.md](POSTMAN_GUIDE.md)** - Detailed API endpoint documentation & examples
-- **[DOCKER.md](DOCKER.md)** - Docker commands, troubleshooting, monitoring
-- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Deploy to GitHub or production (Heroku/DigitalOcean/AWS)
-- **[backend/README.md](backend/README.md)** - Laravel API, testing, scheduling
-- **[frontend/README.md](frontend/README.md)** - React app structure, components
+- **[POSTMAN_GUIDE.md](POSTMAN_GUIDE.md)** - API examples, testing scenarios, status codes
+- **[backend/README.md](backend/README.md)** - Laravel code structure, models, migrations
+- **[frontend/README.md](frontend/README.md)** - React structure, components, routing
 
 ---
 
 ## 📄 License
 
 MIT License
-- Scheduler runs via `php artisan schedule:work` inside Docker
-
-This ensures posts are cleaned up without manual intervention.
-## Testing
-
-The project includes automated **Feature tests** to verify:
-
-- User registration and login (JWT authentication)
-- Protection of authenticated routes
-- Authorization rules via policies (ownership enforcement)
-
-### Test Environment
-
-Tests run against a dedicated MySQL database using `.env.testing`.
-
-Common setup steps:
-- Configure valid `APP_KEY` and JWT keys
-- Use a separate testing database
-- Ensure required model factories exist
-
-### Running Tests
-
-Run tests inside the backend container:
-
-```bash
-## API Documentation
-
-The API is documented using a Postman collection.
-
-### How to use
-1. Import the collection from `/postman/Laravel_Blog_API.postman_collection.json`
-2. Run **Register** or **Login**
-3. The JWT token is automatically stored and reused
-4. Access protected routes using Bearer authentication
-
-The collection includes examples for:
-- Authentication
-- CRUD posts with ownership rules
-- Comments
-- Authorization and error responses
 
 
 
