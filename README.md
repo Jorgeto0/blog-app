@@ -1,53 +1,171 @@
-# Blog Application
+# 📝 Blog Application
 
-A full-stack blog application built with:
+A full-stack blog app built with Laravel, React, MySQL & Docker. Create posts, add comments, manage tags. Posts auto-expire after 24 hours.
 
-- Laravel 12 (RESTful API)
-- PHP 8.4
-- React (frontend)
-- MySQL (database)
-- Redis (queues & scheduling)
-- Docker Compose (local development & deployment)
+## ✨ What's Inside
 
-## Architecture (in progress)
+- **Register & Login** - Create account with avatar, login with JWT token
+- **Create Posts** - Write posts with title, body, and tags
+- **Comments** - Add comments to any post
+- **Post Management** - Edit/delete your own posts
+- **Auto-Expire** - Posts automatically deleted after 24 hours
+- **User Avatars** - Profile pictures everywhere
+- **Clean UI** - Simple, responsive design
 
-- Backend: Laravel API running on PHP-FPM inside Docker
-- Frontend: React SPA (Dockerized later)
-- Database: MySQL (Dockerized later)
-- Queue & Scheduler: Laravel Queue Worker + Redis (Dockerized later)
+## 🛠️ Tech Stack
 
-## Current Status
+- **Frontend**: React 18
+- **Backend**: Laravel 12, PHP 8.4
+- **Database**: MySQL 8.4
+- **Cache**: Redis 7
+- **Docker**: Docker Compose (all-in-one)
 
-- Project structure initialized
-- Laravel backend created
-- Backend Docker container (PHP 8.4-FPM) configured
+---
 
-### Docker Notes
+## 🚀 Start It (2 Minutes)
 
-- Laravel runs inside a PHP 8.4 FPM container
-- Containers use a non-root user (UID 1000) to avoid WSL permission issues
-- Nginx serves Laravel via PHP-FPM
+```bash
+# Clone
+git clone <repo>
+cd blog-app
 
-> This project is being built step-by-step with production-grade architecture.
+# Start everything
+docker compose up --build
 
-- Redis is used for Laravel queues and scheduled background jobs
-- A dedicated scheduler container runs Laravel scheduled tasks
-- JWT authentication infrastructure configured
-- User model prepared for JWT authentication
-- User registration and login endpoints implemented (JWT-based)
-- Post model and database schema created with expiration support
-- Tags model and post_tag pivot table created (many-to-many)
-- Comments model created with post and author relationships
-- Post CRUD endpoints implemented with tag enforcement and expiration
-- Authorization policies implemented for post ownership (update/delete)
-- Comments CRUD implemented with ownership enforcement via policies
-## Scheduled Jobs
+# Wait ~30 seconds for startup, then open:
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8000
+```
 
-Expired posts are automatically deleted using Laravel Scheduler.
+**That's it!** App is running.
 
-- Command: `posts:delete-expired`
-- Frequency: hourly
-- Logic: deletes posts where `expires_at <= now()`
+---
+
+## 🧪 Test It
+
+### In the Browser
+1. Go to http://localhost:3000
+2. Register a new account
+3. Create a post
+4. Add a comment
+5. Edit/delete your post
+
+### With Postman (API Testing)
+1. Open Postman
+2. Click **Import** → Select `Laravel Blog API.postman_collection.json`
+3. Login endpoint → Get token → Test endpoints
+
+**See [POSTMAN_GUIDE.md](POSTMAN_GUIDE.md) for detailed API examples**
+
+---
+
+## 📡 API Endpoints
+
+```
+Base: http://localhost:8000/api
+
+Auth:
+  POST   /auth/register       - Create account
+  POST   /auth/login          - Login (get token)
+  GET    /auth/user           - Current user
+  POST   /auth/logout         - Logout
+
+Posts:
+  GET    /posts               - All posts
+  POST   /posts               - Create post
+  GET    /posts/{id}          - Single post
+  PUT    /posts/{id}          - Edit post (yours only)
+  DELETE /posts/{id}          - Delete post (yours only)
+
+Comments:
+  POST   /posts/{id}/comments - Add comment
+  PUT    /comments/{id}       - Edit comment (yours only)
+  DELETE /comments/{id}       - Delete comment (yours only)
+
+Tags:
+  GET    /tags                - All tags
+  POST   /posts/{id}/tags     - Update post tags
+```
+
+---
+
+## 📁 Project Structure
+
+```
+blog-app/
+├── backend/           # Laravel API
+├── frontend/          # React app
+├── docker-compose.yml # Docker setup
+└── docker/            # Docker configs
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Can't access localhost:3000
+```bash
+docker ps  # Check if containers running
+docker compose logs frontend  # Check logs
+```
+
+### Port already in use
+```bash
+# Kill the process or change port in docker-compose.yml
+```
+
+### MySQL connection error
+```bash
+# Wait 30 seconds for MySQL to start
+# Then run: docker exec -it blog_backend php artisan migrate
+```
+
+### Docker won't start
+```bash
+docker compose down -v
+docker builder prune -f
+docker compose up --build
+```
+
+---
+
+## 🔧 Useful Commands
+
+```bash
+# View all logs
+docker compose logs -f
+
+# Run backend tests
+docker exec -it blog_backend php artisan test
+
+# Access backend shell
+docker exec -it blog_backend bash
+
+# Access database
+docker exec -it blog_mysql mysql -u blog_user -psecret
+
+# Stop everything
+docker compose down
+
+# Clean everything & restart
+docker compose down -v && docker compose up --build
+```
+
+---
+
+## 📚 Want More Details?
+
+- **[POSTMAN_GUIDE.md](POSTMAN_GUIDE.md)** - Detailed API endpoint documentation & examples
+- **[DOCKER.md](DOCKER.md)** - Docker commands, troubleshooting, monitoring
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Deploy to GitHub or production (Heroku/DigitalOcean/AWS)
+- **[backend/README.md](backend/README.md)** - Laravel API, testing, scheduling
+- **[frontend/README.md](frontend/README.md)** - React app structure, components
+
+---
+
+## 📄 License
+
+MIT License
 - Scheduler runs via `php artisan schedule:work` inside Docker
 
 This ensures posts are cleaned up without manual intervention.
