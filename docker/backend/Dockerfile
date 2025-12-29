@@ -35,4 +35,11 @@ RUN mkdir -p storage bootstrap/cache \
  && chown -R laravel:laravel /var/www \
  && chmod -R 775 storage bootstrap/cache
 
+COPY docker/backend/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 USER laravel
+
+
+
+ENTRYPOINT ["/entrypoint.sh"]

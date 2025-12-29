@@ -26,7 +26,7 @@ function Header() {
     <>
       <header className="app-header">
         <div className="container header-inner">
-          <Link to="/" className="logo">My Blog</Link>
+          <p className="logo">My Blog</p>
           <nav>
             {isAuth && currentUser ? (
               <div className="header-user">
