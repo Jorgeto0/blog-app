@@ -21,9 +21,16 @@ class Post extends Model
         'expires_at' => 'datetime',
     ];
 
+    protected $appends = ['user'];
+
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getUserAttribute()
+    {
+        return $this->author;
     }
 
     public function tags()

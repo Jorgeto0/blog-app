@@ -11,9 +11,16 @@ class Comment extends Model
         'user_id',
         'post_id',
     ];
+
+    protected $appends = ['user'];
     
     public function author() {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getUserAttribute()
+    {
+        return $this->author;
     }
 
     public function post() {

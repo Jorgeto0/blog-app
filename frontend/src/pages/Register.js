@@ -61,16 +61,6 @@ function Register() {
         {error && <p className="error-message">{error}</p>}
 
         <div className="avatar-upload-section">
-          <div className="avatar-preview">
-            {imagePreview ? (
-              <img src={imagePreview} alt="Preview" />
-            ) : (
-              <div className="avatar-placeholder">
-                <span>📸</span>
-                <p>Add Profile Photo</p>
-              </div>
-            )}
-          </div>
           <input
             type="file"
             id="image-input"
@@ -78,8 +68,16 @@ function Register() {
             onChange={handleImageChange}
             className="file-input"
           />
-          <label htmlFor="image-input" className="file-label">
-            Choose Photo (Optional)
+          <label htmlFor="image-input" className="avatar-upload">
+            <div className="avatar-preview">
+              {imagePreview ? (
+                <img src={imagePreview} alt="Preview" />
+              ) : (
+                <div className="avatar-placeholder">
+                  <span>+</span>
+                </div>
+              )}
+            </div>
           </label>
         </div>
 

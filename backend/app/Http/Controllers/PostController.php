@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        return Post::with(['author', 'tags', 'comments'])
+        return Post::with(['author', 'tags', 'comments.author'])
             ->latest()
             ->get();
     }

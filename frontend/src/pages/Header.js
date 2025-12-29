@@ -39,7 +39,9 @@ function Header() {
                   Logout
                 </button>
               </div>
-            ) : null}
+            ) : (
+              <Link to="/" className="home-link">Home</Link>
+            )}
           </nav>
         </div>
       </header>
