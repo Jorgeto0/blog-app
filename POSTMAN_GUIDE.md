@@ -1,4 +1,4 @@
-# 🧪 Postman API Testing
+#  Postman API Testing
 
 Quick guide to test all API endpoints.
 
@@ -24,7 +24,7 @@ Quick guide to test all API endpoints.
 
 ---
 
-## 📡 Endpoints Quick List
+##  Endpoints Quick List
 
 ```
 Base URL: http://localhost:8000/api
@@ -54,7 +54,7 @@ Tags:
 
 ---
 
-## 🧪 Test Scenarios
+##  Test Scenarios
 
 ### Happy Path (Success)
 1. Register → Get token

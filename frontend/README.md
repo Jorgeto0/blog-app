@@ -78,7 +78,7 @@ frontend/
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Using Docker (Recommended)
 
@@ -525,5 +525,3 @@ localStorage.clear()
 This project is open source and available under the MIT License.
 
 ---
-
-Happy coding! 🎉

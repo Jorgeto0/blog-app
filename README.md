@@ -2,7 +2,7 @@
 
 A full-stack blog app built with Laravel, React, MySQL & Docker. Create posts, add comments, manage tags. Posts auto-expire after 24 hours.
 
-## ✨ What's Inside
+## What's Inside
 
 - **Register & Login** - Create account with avatar, login with JWT token
 - **Create Posts** - Write posts with title, body, and tags
@@ -22,7 +22,7 @@ A full-stack blog app built with Laravel, React, MySQL & Docker. Create posts, a
 
 ---
 
-## 🚀 Start It (2 Minutes)
+##  Start It (2 Minutes)
 
 ```bash
 # Clone
@@ -41,7 +41,7 @@ docker compose up --build
 
 ---
 
-## 🧪 Test It
+##  Test It
 
 ### Option 1: Test in Browser (Easy)
 1. Go to **http://localhost:3000**
@@ -92,7 +92,7 @@ If a test fails, you see exactly what broke and why.
 
 ---
 
-## 📡 API Endpoints
+##  API Endpoints
 
 ```
 Base: http://localhost:8000/api
@@ -134,7 +134,7 @@ blog-app/
 
 ---
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Can't access localhost:3000
 ```bash
@@ -168,7 +168,7 @@ docker compose exec backend php artisan migrate --env=testing
 
 ---
 
-## 🔧 Useful Commands
+##  Useful Commands
 
 ```bash
 # View all logs
