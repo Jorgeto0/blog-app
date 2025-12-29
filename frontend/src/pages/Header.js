@@ -29,11 +29,11 @@ function Header() {
             {isAuth && currentUser ? (
               <div className="header-user">
                 <img
-                  src={currentUser.image ? (currentUser.image.startsWith('http') ? currentUser.image : `http://localhost:8000/storage/${currentUser.image}`) : 'https://via.placeholder.com/40?text=User'}
+                  src={currentUser.image ? (currentUser.image.startsWith('http') ? currentUser.image : `http://localhost:8000/storage/${currentUser.image}`) : '/default-avatar.png'}
                   alt={currentUser.name}
                   className="header-avatar"
                   title={currentUser.name}
-                  onError={(e) => {e.target.src = 'https://via.placeholder.com/40?text=User'}}
+                  onError={(e) => {e.target.src = '/default-avatar.png'}}
                 />
                 <button className="link-btn" onClick={logout}>
                   Logout

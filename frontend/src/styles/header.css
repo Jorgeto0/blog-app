@@ -66,9 +66,13 @@
   font-weight: 500;
   cursor: pointer;
   font-size: 14px;
-  padding: 6px 12px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.2s;
 }
 
 .link-btn:hover {
-  color: #666;
+  background: #f5f5f5;
+  color: #000;
+  transform: translateY(-1px);
 }

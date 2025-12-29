@@ -5,7 +5,7 @@ function Landing() {
     <div className="landing">
       <div className="landing-content">
         <h1>My Blog</h1>
-        <p>Share your stories with the world</p>
+        <p>Share your thoughts</p>
         
         <div className="landing-buttons">
           <Link to="/login" className="btn-signin">Sign In</Link>

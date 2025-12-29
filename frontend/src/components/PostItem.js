@@ -33,10 +33,10 @@ function PostItem({ post, currentUser, onRefresh }) {
       <div className="post-header">
         <div className="post-user-info">
           <img
-            src={post.user?.image ? (post.user.image.startsWith('http') ? post.user.image : `http://localhost:8000/storage/${post.user.image}`) : 'https://via.placeholder.com/40?text=User'}
+            src={post.user?.image ? (post.user.image.startsWith('http') ? post.user.image : `http://localhost:8000/storage/${post.user.image}`) : '/default-avatar.png'}
             alt={post.user?.name || 'User'}
             className="post-avatar"
-            onError={(e) => {e.target.src = 'https://via.placeholder.com/40?text=User'}}
+            onError={(e) => {e.target.src = '/default-avatar.png'}}
           />
           <div className="post-user-details">
             <h4 className="post-username">{post.user?.name || `User ${post.user_id}`}</h4>

@@ -28,10 +28,10 @@ function Comments({ post, currentUser, onRefresh }) {
             return (
               <div key={comment.id} className="comment">
                 <img
-                  src={comment.user?.image ? (comment.user.image.startsWith('http') ? comment.user.image : `http://localhost:8000/storage/${comment.user.image}`) : 'https://via.placeholder.com/32?text=User'}
+                  src={comment.user?.image ? (comment.user.image.startsWith('http') ? comment.user.image : `http://localhost:8000/storage/${comment.user.image}`) : '/default-avatar.png'}
                   alt={comment.user?.name}
                   className="comment-avatar"
-                  onError={(e) => {e.target.src = 'https://via.placeholder.com/32?text=User'}}
+                  onError={(e) => {e.target.src = '/default-avatar.png'}}
                 />
                 <div className="comment-content">
                   <div className="comment-header">
@@ -62,10 +62,10 @@ function Comments({ post, currentUser, onRefresh }) {
       {currentUser && (
         <div className="comment-input-section">
           <img
-            src={currentUser.image ? (currentUser.image.startsWith('http') ? currentUser.image : `http://localhost:8000/storage/${currentUser.image}`) : 'https://via.placeholder.com/32?text=You'}
+            src={currentUser.image ? (currentUser.image.startsWith('http') ? currentUser.image : `http://localhost:8000/storage/${currentUser.image}`) : '/default-avatar.png'}
             alt={currentUser.name}
             className="comment-avatar-self"
-            onError={(e) => {e.target.src = 'https://via.placeholder.com/32?text=You'}}
+            onError={(e) => {e.target.src = '/default-avatar.png'}}
           />
           <textarea
             className="comment-input"
