@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Resources\UserResource;
 
+
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -18,20 +19,20 @@ class AuthController extends Controller
             'password' => 'required|min:6',
             'image' => 'nullable|image|max:2048',
         ]);
+        $data['password'] = Hash::make($data['password']);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request
-                ->file('image')
-                ->store('avatars', 'public');
+            $data['image'] = $request->file('image')->store('avatars', 'public');
+        } else {
+            $data['image'] = 'avatars/default.png';
         }
-
         $user = User::create($data);
-        return new UserResource($user);
-
         $token = JWTAuth::fromUser($user);
 
         return response()->json([
-            'token' => $token,
+            'user' => new UserResource($user),
+            'access_token' => $token,
+            'token_type' => 'bearer',
         ], 201);
     }
 
@@ -53,5 +54,10 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60,
         ]);
+    }
+
+    public function me()
+    {
+        return new UserResource(auth()->user());
     }
 }

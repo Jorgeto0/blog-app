@@ -1,0 +1,515 @@
+{
+	"info": {
+		"_postman_id": "035c5320-7c89-416d-b1d4-722f2f454f68",
+		"name": "Laravel Blog API",
+		"description": "StartFragment\n\n## Overview\n\nThis collection documents a **Dockerized Laravel 12 REST API** for a blog platform with:\n\n- JWT authentication\n    \n- Posts with automatic expiration (24 hours)\n    \n- Tags (minimum one per post)\n    \n- Comments\n    \n- Ownership & authorization rules enforced via policies\n    \n\nThe collection is designed to be **ready to use after import**, with **no manual configuration required**.\n\n---\n\n## Base URL\n\nAll requests use the built-in collection variable: {{base_url}} = http://localhost:8000/api\n\nYou do not need to change URLs manually.\n\n---\n\n## Authentication (JWT)\n\nThe API uses **JWT (Bearer Token)** authentication.\n\n### Built-in users\n\nThis collection simulates **two users** to demonstrate authorization rules:\n\n- **User 1** → Post owner  \n      \n    Token stored in: **{{TOKEN1}}**\n    \n- **User 2** → Non-owner (attacker)  \n      \n    Token stored in: **{{TOKEN2}}**\n    \n\n### How authentication works\n\n1. Run **Login (User 1 – Owner)**  \n      \n    → JWT is automatically saved to **TOKEN1**\n    \n2. Run **Login (User 2 – Non Owner)**  \n      \n    → JWT is automatically saved to **TOKEN2**\n    \n3. Protected **requests automatically use the correct token**\n    \n\n→No headers or tokens need to be manually edited.\n\n---\n\n## Authorization Rules (Important)\n\nThe API enforces ownership rules using Laravel Policies:\n\n- Users can **edit/delete only their own posts**\n    \n- Users can **edit/delete only their own comments**\n    \n- Accessing another user’s resource returns **403 Forbidden**\n    \n- Missing or invalid JWT returns **401 Unauthorized**\n    \n\nThese rules are demonstrated explicitly in the collection:\n\n- ✅ Successful owner actions\n    \n- ❌ Forbidden non-owner actions\n    \n\n---\n\n## Posts\n\n### Creating a post\n\n- Requires authentication\n    \n- Requires **at least one tag**\n    \n- **expires_at** is automatically set to **24 hours after creation**\n    \n- Posts are automatically deleted by a scheduled job after expiration\n    \n\n### Expiration behavior\n\nExpired posts:\n\n- Are not manually deleted\n    \n- Are cleaned up automatically by Laravel Scheduler\n    \n- Use **expires_at** as the source of truth\n    \n\n---\n\n## Comments\n\n- Any authenticated user may comment on a post\n    \n- Only the comment author may edit or delete their comment\n    \n- Ownership rules are enforced consistently\n    \n\n---\n\n## Error Responses\n\nCommon HTTP status codes used:\n\n| Status | Meaning |\n| --- | --- |\n| 201 | Resource created |\n| 200 | Successful request |\n| 401 | Unauthorized (missing/invalid JWT) |\n| 403 | Forbidden (ownership violation) |\n| 422 | Validation error |\n\n---\n\nStartFragment\n\n## How to Use This Collection (Quick Start)\n\n1. Import the collection into Postman\n    \n2. Open the **Auth** folder\n    \n3. Run:\n    \n    - **Register (User 1)**\n        \n    - **Register (User 2)**\n        \n4. Run:\n    \n    - **Login (User 1)** → stores the JWT in `TOKEN1`\n        \n    - **Login (User 2)** → stores the JWT in `TOKEN2`\n        \n5. Try the requests in the **Posts** and **Comments** folders\n    \n\nAuthorization is handled automatically using the stored tokens.  \n  \nNo headers or variables need to be edited manually.\n\nThat’s it.\n\nEndFragment  \n  \n\n---\n\n## Notes\n\n- This collection intentionally avoids environments for simplicity\n    \n- All configuration is handled via collection variables\n    \n- Designed for fast reviewer verification\n    \n\nEndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47926300",
+		"_collection_link": "https://jorge-s-team-11.postman.co/workspace/Team-Workspace~fc139078-97c6-4e6b-832a-265f44592848/collection/47926300-035c5320-7c89-416d-b1d4-722f2f454f68?action=share&source=collection_link&creator=47926300"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User 1",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"User1\",\r\n    \"email\": \"User1@gmail.com\",\r\n    \"password\": \"User1secert\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User 2",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"User2\",\r\n    \"email\": \"User2@gmail.com\",\r\n    \"password\": \"User2secert\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('TOKEN1', pm.response.json().access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"User1@gmail.com\",\r\n    \"password\": \"User1secert\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('TOKEN2', pm.response.json().access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"User2@gmail.com\",\r\n    \"password\": \"User2secert\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Create Post (User 1)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"User 1 Firstt Post\",\r\n    \"body\" : \"my firrrst post\",\r\n    \"tags\" : [\"myfirrrstppost\", \"lolxD\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/posts/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Own Post (User 1)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"User 1 updated Post\",\r\n    \"body\" : \"my updated post\",\r\n    \"tags\" : [\"myupdattedppost\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/posts/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Others Post (User 2 → 403)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN2}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"User 2 updating Post\",\r\n    \"body\" : \"ohh noo i cant update\",\r\n    \"tags\" : [\"myupdattedppost\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/posts/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Posts (Feed)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/posts/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Add Comment (User 1)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"body\": \"my comment in post 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/posts/1/comments",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts",
+								"1",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Others Comments (User 2 → 403)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN2}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"body\": \"I am user 2 trying to update the comment of user 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/comments/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Own Comment (User 1)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/comments/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": ""
+		},
+		{
+			"key": "TOKEN1",
+			"value": ""
+		},
+		{
+			"key": "TOKEN2",
+			"value": ""
+		}
+	]
+}

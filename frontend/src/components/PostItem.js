@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Comments from './Comments';
 
 function PostItem({ post, currentUser, onRefresh }) {
-  const isOwner = currentUser && post.user_id === currentUser.id;
+  const isOwner = currentUser?.id === post.user_id;
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(post.title);
   const [body, setBody] = useState(post.body);

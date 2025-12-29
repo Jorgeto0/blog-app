@@ -5,6 +5,7 @@ import { getCurrentUser } from '../auth/user';
 import CreatePost from '../components/CreatePost';
 import Expiration from '../components/Expiration';
 import PostItem from '../components/PostItem';
+import Avatar from '../components/Avatar';
 
 
 
