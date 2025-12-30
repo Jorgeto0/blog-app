@@ -61,7 +61,13 @@ docker compose up --build
 
 ### Option 3: Run Automated Tests (Development)
 
-**First time only - create test database:**
+**First time only - install dev dependencies:**
+```bash
+docker compose exec backend composer install
+```
+This installs phpunit and other dev dependencies. The GitHub version uses `--no-dev` to keep the Docker image lightweight, so dev packages need to be installed manually for testing.
+
+**Then create test database:**
 ```bash
 docker compose exec backend php artisan migrate --env=testing
 ```
