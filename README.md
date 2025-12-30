@@ -166,6 +166,12 @@ docker compose up --build
 docker compose exec backend php artisan migrate --env=testing
 ```
 
+### Docker build cache issues
+```bash
+# Force rebuild without cache (slower but fixes build issues)
+docker compose build --no-cache
+```
+
 ---
 
 ##  Useful Commands
@@ -195,7 +201,17 @@ docker compose down -v && docker compose up --build
 
 ---
 
-## 📚 Want More Details?
+## � Note on vendor/ Directory
+
+The `vendor/` directory is **committed to the repository** for:
+- ✅ Exam reliability - no network dependency during `docker compose up --build`
+- ✅ Fast Docker builds - dependencies pre-installed
+
+In real-world production, dependencies would be installed via CI/CD pipelines instead.
+
+---
+
+## �📚 Want More Details?
 
 - **[POSTMAN_GUIDE.md](POSTMAN_GUIDE.md)** - API examples, testing scenarios, status codes
 - **[backend/README.md](backend/README.md)** - Laravel code structure, models, migrations
